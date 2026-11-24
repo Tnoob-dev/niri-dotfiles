@@ -1,0 +1,88 @@
+(defpoll clock      :interval "10s" "date +'%H:%M'")
+(deflisten ws       :initial "[\"empty\",\"hidden\",\"hidden\",\"hidden\",\"hidden\",\"hidden\"]" "~/.config/eww/scripts/ws_listen.py")
+(deflisten title    :initial "" "~/.config/eww/scripts/title_listen.py")
+(defpoll vol_icon   :interval "1.5s" "~/.config/eww/scripts/volume.sh icon")
+(defpoll vol_text   :interval "0.5s" "~/.config/eww/scripts/volume.sh text")
+(defpoll net_icon   :interval "10s" "~/.config/eww/scripts/network.sh icon")
+(defpoll bt_icon    :interval "3s" "~/.config/eww/scripts/bt.sh icon")
+(defpoll bt_state   :interval "3s" "~/.config/eww/scripts/bt.sh state")
+(defpoll bat_icon   :interval "0.1s" "~/.config/eww/scripts/battery.sh icon")
+(defpoll bat_state  :interval "0.1s" "~/.config/eww/scripts/battery.sh state")
+(defpoll bat_text   :interval "1s" "~/.config/eww/scripts/battery.sh pct")
+(defpoll idle_icon  :interval "2s" "~/.config/eww/scripts/idle.sh icon")
+(defpoll power_icon :interval "1000s" "~/.config/eww/scripts/icon.sh power")
+(defpoll bat_x      :interval "100ms" "~/.config/eww/scripts/bat_x.sh")
+(defpoll bat_frame  :interval "120ms" "~/.config/eww/scripts/bat_frame.sh")
+(defpoll net_down   :interval "1s" "~/.config/eww/scripts/net_rate.py down")
+(defpoll net_up     :interval "1s" "~/.config/eww/scripts/net_rate.py up")
+
+(defwidget sep []
+  (box :class "sep" :valign "center"))
+
+(defwidget stat [icon text]
+  (box :class "stat" :space-evenly false :spacing 20
+    (label :class "icon" :text icon)
+    (label :text text)))
+
+(defwidget ws-btn [n state]
+  (eventbox :onclick "niri msg action focus-workspace ${n}"
+            :visible {state != "hidden"}
+            :valign "center"
+    (box :width 12 :height 12 :halign "center" :valign "center"
+      (overlay
+        (box :class "ws ${state}" :width 8 :height 8 :halign "center" :valign "center")
+        (revealer :transition "crossfade" :duration "300ms" :reveal {state == "active"}
+          (box :class "ws-on" :width 12 :height 12 :halign "center" :valign "center"))))))
+
+(defwidget workspaces []
+  (box :class "ws-group" :space-evenly false :spacing 4 :valign "center"
+    (ws-btn :n 1 :state {ws[0]})
+    (ws-btn :n 2 :state {ws[1]})
+    (ws-btn :n 3 :state {ws[2]})
+    (ws-btn :n 4 :state {ws[3]})
+    (ws-btn :n 5 :state {ws[4]})
+    (ws-btn :n 6 :state {ws[5]})))
+
+(defwidget netspeed []
+  (box :class "netspeed" :orientation "v" :valign "center" :space-evenly false
+    (label :class "net-up" :xalign 1 :text "${net_up}")
+    (label :class "net-down" :xalign 1 :text "${net_down}")))
+
+(defwidget bar []
+  (centerbox :class "bar" :orientation "h" :valign "center"
+    (box :halign "start" :valign "center" :space-evenly false :spacing 10
+      (workspaces)
+      (sep)
+      (box :class "batstrip" :width 100 :valign "center" :space-evenly false
+        (box :width {bat_x})
+        (image :path "${bat_frame}" :image-width 28 :image-height 28)))
+    (box :halign "center" :valign "center"
+      (label :class "title" :limit-width 40 :text "TitiLM10"))
+    (box :halign "end" :valign "center" :space-evenly false :spacing 12
+      (netspeed)
+      (button :class "item idle"
+              :onclick "~/.config/eww/scripts/idle.sh toggle"
+        (label :class "icon" :text "${idle_icon}"))
+      (eventbox :class "item" :onscroll "~/.config/eww/scripts/volume.sh {}"
+                :onclick "~/.config/eww/scripts/volume.sh toggle"
+        (stat :icon "${vol_icon}" :text "${vol_text}"))
+      (button :class "item net"
+              :onclick "~/.config/eww/scripts/wifi-popup.py"
+        (label :class "icon" :text "${net_icon}"))
+      (button :class "item bt ${bt_state}"
+              :onclick "~/.config/eww/scripts/bt-popup.py"
+        (label :class "icon" :text "${bt_icon}"))
+      (box :class "bat ${bat_state}" :valign "center" :tooltip "${bat_text}"
+        (label :class "icon" :text "${bat_icon}"))
+      (button :class "item power" :onclick "wlogout"
+        (label :class "icon" :text "${power_icon}"))
+      (sep)
+      (label :class "clock" :text "${clock}"))))
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :stacking "fg"
+  :exclusive true
+  :geometry (geometry :x "0%" :y "4px" :width "97%" :height "44px" :anchor "top center")
+  (bar))

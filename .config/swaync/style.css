@@ -1,0 +1,108 @@
+* {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 13px;
+    color: #e6e6e6;
+}
+
+.notification-row {
+    outline: none;
+    margin: 8px 10px;
+}
+
+.notification {
+    background-color: rgba(11, 11, 14, 0.95);
+    border: 2px solid #8E1523;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(142, 21, 35, 0.6);
+    padding: 6px 8px;
+}
+
+.notification.critical {
+    border: 3px solid #8E1523;
+    box-shadow: 0 0 18px rgba(142, 21, 35, 0.9);
+}
+
+.notification.low {
+    border-color: #3a3a3a;
+    box-shadow: none;
+}
+
+.notification.low .body,
+.notification.low .summary {
+    color: #9a9a9a;
+}
+
+.summary {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.body {
+    color: #c8c8c8;
+}
+
+.time {
+    color: #8E1523;
+    font-size: 11px;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    color: #8E1523;
+    border-radius: 10px;
+    min-height: 20px;
+    min-width: 20px;
+}
+
+.close-button:hover {
+    background-color: #8E1523;
+    color: #0b0b0e;
+}
+
+.control-center {
+    background-color: rgba(11, 11, 14, 0.97);
+    border: 2px solid #8E1523;
+    border-radius: 10px;
+    box-shadow: 0 0 16px rgba(142, 21, 35, 0.6);
+    margin: 10px;
+    padding: 10px;
+}
+
+.widget-title {
+    color: #8E1523;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 6px;
+}
+
+.widget-title button {
+    background: transparent;
+    border: 1px solid #8E1523;
+    border-radius: 6px;
+    color: #e6e6e6;
+    padding: 4px 10px;
+}
+
+.widget-title button:hover {
+    background-color: #8E1523;
+}
+
+.widget-dnd {
+    margin: 6px;
+}
+
+.widget-dnd > switch {
+    background-color: #2a2a2e;
+    border: 1px solid #8E1523;
+    border-radius: 12px;
+}
+
+.widget-dnd > switch:checked {
+    background-color: #8E1523;
+}
+
+.widget-dnd > switch slider {
+    background-color: #e6e6e6;
+    border-radius: 12px;
+}

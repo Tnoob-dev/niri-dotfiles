@@ -1,0 +1,139 @@
+$bg: #0b0b0e;
+$red: #F20519;
+$flare: #F20505;
+$text: #F2F2F2;
+$body: #b0b0b5;
+$muted: #6b6b72;
+
+* {
+    font-family: "CaskaydiaCove NF SemiBold", monospace;
+    font-size: 13px;
+    color: $text;
+}
+
+window {
+    background: transparent;
+}
+
+.bar {
+    background-color: transparent;
+    border: 2px solid #F20505;
+    border-radius: 20px;
+    padding: 0 12px;
+}
+
+.module {
+    padding: 0 10px;
+    min-height: 34px;
+}
+
+.module button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 6px;
+    min-height: 0;
+}
+
+.module button:hover .icon,
+.module button:hover label {
+    color: $flare;
+}
+
+.icon {
+    font-size: 25px;
+}
+
+.clock {
+    font-family: "CaskaydiaCove Nerd";
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.ws-group {
+    padding: 0 2px;
+}
+
+.ws {
+    background-color: $muted;
+    border-radius: 50%;
+}
+
+.ws.occupied {
+    background-color: $body;
+}
+
+.ws:hover {
+    background-color: $flare;
+}
+
+.ws-num {
+    color: $muted;
+}
+
+.ws.occupied .ws-num {
+    color: $body;
+}
+
+.ws.active {
+    background-color: $flare;
+}
+
+.ws.active .ws-num {
+    color: $text;
+}
+
+.ws-on {
+    background-color: $flare;
+    border-radius: 999px;
+}
+
+.net,
+.power,
+.idle {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.bat label {
+    color: #a6e3a1;
+}
+
+.bat.charging label {
+    color: #89b4fa;
+}
+
+.bat.warning label {
+    color: #f9e2af;
+}
+
+.bat.critical label {
+    color: $flare;
+}
+
+.stat {
+    padding: 0 15px;
+}
+
+.bat {
+    padding: 0 10px;
+}
+
+.stat .icon {
+    min-width: 25px;
+}
+
+.netspeed {
+    font-size: 12px;
+    color: $text;
+    min-width: 170px;
+}
+
+.bt.on .icon {
+    color: #89b4fa;
+}
+
+.bt.off .icon {
+    color: $muted;
+}
